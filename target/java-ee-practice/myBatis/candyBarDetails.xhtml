@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h2>#{candyBarDetails.getCandyBar().name}</h2>
+    <ol>
+        <ui:repeat value="#{batisCandyBarDetails.getIngredients()}" var="ingredient">
+            <li><h:link value="#{ingredient.name}" outcome="/myBatis/ingredientDetails?ingredientId=#{ingredient.id}" /></li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:selectOneMenu value="#{batisCandyBarDetails.selectedIngredient}" >
+            <f:selectItem itemValue="#{null}" itemLabel="-- select one --" />
+            <f:selectItems value="#{batisCandyBarDetails.getAddableIngredients()}" />
+        </h:selectOneMenu>
+        <h:commandButton value="Add ingredient"
+                         actionListener="#{batisCandyBarDetails.addIngredient}"
+                         action="#{batisCandyBarDetails.redirectBackToCandyBar()}"/>
+    </h:form>
+    <h:link outcome="/myBatis/candyBarManagement" value="Return"/>
+</h:body>
+</html>

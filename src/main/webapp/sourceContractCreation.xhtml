@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h2>Add a new source contract</h2>
+    <h:form>
+        <p>Contract name:</p>
+        <h:inputText value="#{sourceContracts.sourceContractToCreate.name}" required="true" />
+        <br/>
+        <p>Contract country of origin:</p>
+        <h:inputText value="#{sourceContracts.sourceContractToCreate.countryOfOrigin}" required="true" />
+        <br/>
+        <p>Price:</p>
+        <h:inputText value="#{sourceContracts.sourceContractToCreate.price}" required="true" />
+        <br/>
+        <br/>
+        <h:commandButton value="Add new contract"
+                         actionListener="#{sourceContracts.createSourceContract}"
+                         action="#{sourceContracts.redirectBackToIngredient()}">
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="#{sourceContracts.redirectBackToIngredient()}" value="Return"/>
+</h:body>
+</html>

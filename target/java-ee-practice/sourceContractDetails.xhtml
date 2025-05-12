@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<h:head/>
+<h:body>
+    <h2>Contract info:</h2>
+    <p>Name: #{sourceContractDetails.getSourceContract().name}</p>
+    <p>Country of origin: #{sourceContractDetails.getSourceContract().countryOfOrigin}</p>
+    <p>Price: #{sourceContractDetails.getSourceContract().price}</p>
+    <h:link outcome="#{sourceContractDetails.redirectBackToIngredient()}" value="Return"/>
+</h:body>
+</html>

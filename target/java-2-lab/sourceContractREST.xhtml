@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>REST example</title>
+</h:head>
+<h:body>
+    <h2>Contract info:</h2>
+    <h:form>
+        <p>Id: </p>
+        <input type="text" id="sourceContractId"/>
+        <h:commandButton value="Fetch" onclick="getSourceContract(); return false;" />
+    </h:form>
+    <h:form>
+        <p>Name: </p>
+        <input id="nameField" type="text" />
+        <br/>
+        <p>Country of origin: </p>
+        <input id="originField" type="text"/>
+        <br/>
+        <p>Price: </p>
+        <input id="priceField" type="text"/>
+        <br/>
+        <p>Ingredient id: </p>
+        <input id="ingredientId" type="text"/>
+        <br/>
+        <br/>
+        <h:commandButton value="Update contract" onclick="updateSourceContract(); return false;"/>
+        <br/>
+        <h:commandButton value="Create new contract" onclick="createSourceContract(); return false;"/>
+        <br/>
+        <h:link outcome="/index.html" value="Return"/>
+        <p id="errorPlace"></p>
+    </h:form>
+
+    <script type="text/javascript">
+        const baseUrl = "http://localhost:8080/java-2-lab/api/sourceContracts";
+
+        function getSourceContract() {
+            document.getElementById('errorPlace').textContent = "";
+            const id = document.getElementById("sourceContractId").value;
+            fetch(baseUrl + "/" + id, {method: "GET"})
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('nameField').value = data.name;
+                    document.getElementById('originField').value = data.countryOfOrigin;
+                    document.getElementById('priceField').value = data.price;
+                    document.getElementById('ingredientId').value = data.ingredientId;
+                })
+                .catch(error => document.getElementById('errorPlace').textContent = "Error: " + error);
+        }
+
+        function updateSourceContract() {
+            document.getElementById('errorPlace').textContent = "";
+            const id = document.getElementById("sourceContractId").value;
+
+            const updatedSourceContract = {
+                name: document.getElementById('nameField').value,
+                countryOfOrigin: document.getElementById('originField').value,
+                price: document.getElementById('priceField').value,
+                ingredientId: document.getElementById('ingredientId').value
+            };
+
+            fetch(baseUrl + "/" + id, {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(updatedSourceContract),
+            }).catch(error => document.getElementById('errorPlace').textContent = "Error: " + error);
+        }
+
+        function createSourceContract() {
+            document.getElementById('errorPlace').textContent = "";
+            const createdSourceContract = {
+                name: document.getElementById('nameField').value,
+                countryOfOrigin: document.getElementById('originField').value,
+                price: document.getElementById('priceField').value,
+                ingredientId: document.getElementById('ingredientId').value
+            };
+
+            fetch(baseUrl, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(createdSourceContract),
+            }).catch(error => document.getElementById('errorPlace').textContent = "Error: " + error);
+        }
+
+    </script>
+</h:body>
+</html>

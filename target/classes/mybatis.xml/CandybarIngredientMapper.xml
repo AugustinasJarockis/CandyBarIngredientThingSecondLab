@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="candyBar.mybatis.dao.CandybarIngredientMapper">
+    <resultMap id="CandybarResultMap" type="candyBar.mybatis.model.Candybar">
+        <id column="candyBarId" jdbcType="INTEGER" property="id"/>
+        <result column="candyBarName" jdbcType="VARCHAR" property="name"/>
+        <collection javaType="ArrayList" property="ingredients" resultMap="IngredientResultMap"/>
+    </resultMap>
+
+    <resultMap id="IngredientResultMap" type="candyBar.mybatis.model.Ingredient">
+        <id column="ingredientId" jdbcType="INTEGER" property="id"/>
+        <result column="ingredientName" jdbcType="VARCHAR" property="name"/>
+        <collection javaType="ArrayList" property="presentIn" resultMap="CandybarResultMap" />
+    </resultMap>
+
+    <insert id="addIngredient">
+        INSERT INTO PUBLIC.CANDYBAR_INGREDIENT (CANDYBAR_ID, INGREDIENTS_ID)
+        VALUES (#{candybarId, jdbcType=INTEGER}, #{ingredientsId, jdbcType=INTEGER});
+    </insert>
+    <delete id="deleteIngredient" >
+        DELETE FROM PUBLIC.CANDYBAR_INGREDIENT
+        WHERE 1=1
+        AND CANDYBAR_ID=#{candybarId}
+        AND INGREDIENTS_ID=#{ingredientId}
+    </delete>
+
+    <select id="getIngredients" resultMap="IngredientResultMap">
+        SELECT
+        i.ID AS ingredientId, i.NAME AS ingredientName
+        FROM PUBLIC.CANDYBAR AS  c
+        LEFT JOIN PUBLIC.CANDYBAR_INGREDIENT AS ci ON c.ID = ci.CANDYBAR_ID
+        LEFT JOIN PUBLIC.INGREDIENT AS i ON i.ID = ci.INGREDIENTS_ID
+        WHERE 1=1
+        AND c.ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getCandybars" resultMap="CandybarResultMap">
+        SELECT
+        c.ID AS candyBarId, c.NAME AS candyBarName
+        FROM PUBLIC.INGREDIENT AS  i
+        LEFT JOIN PUBLIC.CANDYBAR_INGREDIENT AS ci ON i.ID = ci.INGREDIENTS_ID
+        LEFT JOIN PUBLIC.CANDYBAR AS c ON c.ID = ci.CANDYBAR_ID
+        WHERE 1=1
+        AND i.ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getCandybarsWithIngredients" resultMap="CandybarResultMap">
+        SELECT
+            c.ID AS candyBarId, c.NAME AS candyBarName, i.ID AS ingredientId, i.NAME AS ingredientName
+        FROM PUBLIC.CANDYBAR AS c
+                 LEFT JOIN PUBLIC.CANDYBAR_INGREDIENT AS ci ON c.ID = ci.CANDYBAR_ID
+                 LEFT JOIN PUBLIC.INGREDIENT AS  i ON i.ID = ci.INGREDIENTS_ID
+    </select>
+</mapper>

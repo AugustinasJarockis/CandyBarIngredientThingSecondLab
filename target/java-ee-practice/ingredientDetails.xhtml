@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<h:head/>
+<h:body>
+    <h2>#{ingredientDetails.getIngredient().name}</h2>
+    <h3>Ingredient sourcing contracts:</h3>
+    <ol>
+        <ui:repeat value="#{ingredientDetails.getIngredient().sourceContracts}" var="sourceContract">
+            <li><h:link value="#{sourceContract.name}" outcome="sourceContractDetails?contractId=#{sourceContract.id}" /></li>
+        </ui:repeat>
+    </ol>
+    <h:button value="Add source contract" outcome="sourceContractCreation?ingredientId=#{ingredientDetails.getIngredient().id}" />
+    <br/>
+    <h:link outcome="ingredientManagement" value="Return"/>
+</h:body>
+</html>

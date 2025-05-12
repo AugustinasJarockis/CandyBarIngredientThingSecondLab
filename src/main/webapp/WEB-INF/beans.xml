@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+        bean-discovery-mode="annotated">
+    <alternatives>
+        <class>candyBar.persistence.alternatives.PergaleCandyBarsDAO</class>
+    </alternatives>
+    <interceptors>
+        <class>candyBar.interceptors.TimeLoggerImpl</class>
+    </interceptors>
+    <decorators>
+<!--        <class>candyBar.decorators.CandyBarDAODecorator</class>-->
+    </decorators>
+</beans>

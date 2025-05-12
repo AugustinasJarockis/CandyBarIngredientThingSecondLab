@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<h:head/>
+<h:body>
+    <h2>Manage ingredients</h2>
+    <ol>
+        <ui:repeat value="#{batisIngredients.allIngredients}" var="ingredient">
+            <li><h:link value="#{ingredient.name}" outcome="/myBatis/ingredientDetails?ingredientId=#{ingredient.id}" /></li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText value="#{batisIngredients.ingredientToCreate.name}" required="true" />
+        <h:commandButton value="Add new ingredient"
+                         actionListener="#{batisIngredients.createIngredient}"
+                         action="/myBatis/ingredientManagement?faces-redirect=true"/>
+    </h:form>
+    <h:link outcome="/myBatis/candyBarManagement" value="Manage candy bars"/>
+</h:body>
+</html>

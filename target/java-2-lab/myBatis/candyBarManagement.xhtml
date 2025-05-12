@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<h:head/>
+<h:body>
+    <h2>Candy bar selection:</h2>
+    <ol>
+        <ui:repeat value="#{batisCandyBars.allCandyBars}" var="candyBar">
+            <li>
+                <h:link value="#{candyBar.name}" outcome="/myBatis/candyBarDetails?candyBarId=#{candyBar.id}" />
+                <span>#{candyBar.getIngredients().size()}</span>
+            </li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText value="#{batisCandyBars.candyBarToCreate.name}" required="true" />
+        <h:commandButton value="Add new candy bar"
+                         actionListener="#{batisCandyBars.createCandyBar}"
+                         action="/myBatis/candyBarManagement?faces-redirect=true"/>
+    </h:form>
+    <h:link outcome="/myBatis/ingredientManagement" value="Manage ingredients"/>
+    <br/>
+    <h:link outcome="/index.xhtml" value="JPA implementation"/>
+</h:body>
+</html>

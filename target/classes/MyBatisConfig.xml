@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="candyBar.mybatis.model.Candybar" alias="Candybar"/>
+        <typeAlias type="candyBar.mybatis.model.Ingredient" alias="Ingredient"/>
+        <typeAlias type="candyBar.mybatis.model.SourceContract" alias="SourceContract"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="MANAGED"/>
+            <dataSource type="JNDI">
+                <property name="data_source" value="Lab2DataSource"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis.xml/CandybarMapper.xml"/>
+        <mapper resource="mybatis.xml/CandybarIngredientMapper.xml"/>
+        <mapper resource="mybatis.xml/IngredientMapper.xml"/>
+        <mapper resource="mybatis.xml/SourceContractMapper.xml"/>
+    </mappers>
+</configuration>
